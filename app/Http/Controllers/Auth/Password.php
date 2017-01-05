@@ -23,6 +23,12 @@ class Password extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
+        $check_has_password_reset = PasswordReset::where('email', $data['email'])->first();
+
+        if (!is_null($check_has_password_reset)) {
+            return response()->json(['error' => 'Token already sent!'], 400);
+        }
+
         $user = User::where('email', $data['email'])->first();
 
         if (is_null($user)) {
