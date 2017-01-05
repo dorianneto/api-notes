@@ -8,7 +8,7 @@ $app->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($app) 
     $app->delete('notes/{id}', 'Note@destroy');
 });
 
-$app->post('auth', 'Auth\LoginController@authenticate');
+$app->post('auth', 'Auth\Login@authenticate');
 // $app->post('reset', 'Auth\AuthController@reset');
-$app->post('logout', 'Auth\LoginController@logout');
-// $app->post('sign_up', 'Auth\RegisterController@register');
+$app->post('logout', 'Auth\Login@logout');
+$app->post('sign_up', 'User@store');

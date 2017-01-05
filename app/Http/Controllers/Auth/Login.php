@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use JWTAuth;
 
-class LoginController extends Controller
+class Login extends Controller
 {
     public function authenticate(Request $request)
     {
