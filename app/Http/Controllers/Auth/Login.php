@@ -26,11 +26,11 @@ class Login extends Controller
 
     public function logout(Request $request)
     {
-        $token = JWTAuth::getToken();
-
-        if ($token) {
-            JWTAuth::setToken($token)->invalidate();
+        if (!$token = JWTAuth::getToken()) {
+            return response()->json(['error' => 'token_not_found'], 500);
         }
+
+        JWTAuth::setToken($token)->invalidate();
 
         return response()->json(['message' => 'sign_out']);
     }
