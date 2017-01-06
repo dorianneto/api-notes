@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Carbon\Carbon;
 use App\Note as Model;
 use JWTAuth;
 use Validator;
@@ -18,72 +20,90 @@ class Note extends Controller
 
     public function get(Request $request)
     {
-        $all = $this->model->where('user_id', JWTAuth::user()->id)->get();
+        $all = $this->model
+            ->where('user_id', JWTAuth::user()->id)
+            ->get();
 
         return response()->json($all);
     }
 
     public function find(Request $request, $id)
     {
-        $all = $this->model->where('user_id', JWTAuth::user()->id)->find($id);
+        $the_one = $this->model
+            ->where('user_id', JWTAuth::user()->id)
+            ->find($id);
 
-        return response()->json($all);
+        return response()->json($the_one);
     }
 
     public function store(Request $request)
     {
         $request->merge(['user_id' => JWTAuth::user()->id]);
+        $data = $request->only('text', 'user_id');
 
-        $data      = $request->all();
-        $validator = Validator::make($data, [
+        $validator = $this->validator($data, [
             'text' => 'required|max:255'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+        if (!is_null($validator)) {
+            return $validator;
         }
 
-        $stored = $this->model->insert($data);
+        try {
+            $data['created_at'] = Carbon::now();
 
-        return response()->json(['message' => 'Note stored!']);
+            $this->model->insert($data);
+
+            return response()->json(['message' => 'Note stored!']);
+        } catch (QueryException $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $request->merge(['user_id' => JWTAuth::user()->id]);
+        $data = $request->only('text', 'user_id');
 
-        $data      = $request->all();
-        $validator = Validator::make($data, [
+        $validator = $this->validator($data, [
             'text' => 'required|max:255'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+        if (!is_null($validator)) {
+            return $validator;
         }
 
-        $updated = $this->model
-            ->where('id', $id)
-            ->where('user_id', JWTAuth::user()->id)
-            ->update($data);
+        try {
+            $updated = $this->model
+                ->where('id', $id)
+                ->where('user_id', JWTAuth::user()->id)
+                ->update($data);
 
-        if ($updated == 0) {
-            return response()->json(['message' => 'ID not found.'], 400);
+            if ($updated == 0) {
+                return response()->json(['message' => 'ID not found.'], 400);
+            }
+
+            return response()->json(['message' => 'Note updated!']);
+        } catch (QueryException $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
         }
-
-        return response()->json(['message' => 'Note updated!']);
     }
 
     public function destroy(Request $request, $id)
     {
-        $deleted = $this->model
-            ->where('id', $id)
-            ->where('user_id', JWTAuth::user()->id)
-            ->delete();
+        try {
+            $deleted = $this->model
+                ->where('id', $id)
+                ->where('user_id', JWTAuth::user()->id)
+                ->delete();
 
-        if ($deleted == 0) {
-            return response()->json(['message' => 'ID not found.'], 400);
+            if ($deleted == 0) {
+                return response()->json(['message' => 'ID not found.'], 400);
+            }
+
+            return response()->json(['message' => 'Note deleted!']);
+        } catch (QueryException $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
         }
-
-        return response()->json(['message' => 'Note deleted!']);
     }
 }
