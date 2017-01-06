@@ -50,14 +50,15 @@ class Password extends Controller
 
     public function reset(Request $request, $token)
     {
-        $data      = $request->only('email', 'password');
-        $validator = Validator::make($data, [
+        $data = $request->only('email', 'password');
+
+        $validator = $this->validator($data, [
             'email'    => 'required|email',
             'password' => 'required|min:6'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+        if (!is_null($validator)) {
+            return $validator;
         }
 
         $password_reset = PasswordReset::where('email', $data['email'])->where('token', $token)->first();
