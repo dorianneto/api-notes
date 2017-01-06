@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\PasswordReset;
 use App\User;
-use Validator;
 
 class Password extends Controller
 {
     public function send(Request $request, PasswordReset $passwordReset)
     {
-        $data      = $request->all();
-        $validator = Validator::make($data, [
+        $data = $request->only('email');
+
+        $validator = $this->validator($data, [
             'email' => 'required|email',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+        if (!is_null($validator)) {
+            return $validator;
         }
 
         $check_has_password_reset = PasswordReset::where('email', $data['email'])->first();
@@ -50,7 +50,7 @@ class Password extends Controller
 
     public function reset(Request $request, $token)
     {
-        $data      = $request->all();
+        $data      = $request->only('email', 'password');
         $validator = Validator::make($data, [
             'email'    => 'required|email',
             'password' => 'required|min:6'
