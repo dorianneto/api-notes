@@ -28,6 +28,11 @@ task('artisan:migrate', function () {
     writeln('<info>' . $output . '</info>');
 })->desc('Execute artisan migrations');
 
+task('artisan:seed', function () {
+    $output = run('{{bin/php}} {{release_path}}/artisan db:seed');
+    writeln('<info>' . $output . '</info>');
+})->desc('Execute artisan seeds');
+
 task('deploy:configure', function () {
     env('timezone', 'America/Fortaleza');
 })->desc('Execute deploy configuration');
@@ -49,5 +54,6 @@ task('deploy', [
     'cleanup',
     'env_file',
     'artisan:cache:clear',
-    'artisan:migrate'
+    'artisan:migrate',
+    'artisan:seed'
 ]);
