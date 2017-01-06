@@ -32,12 +32,12 @@ class User extends Controller
         }
 
         try {
-            $data['password'] = Hash::make($data['password']);
+            $data['password']   = Hash::make($data['password']);
             $data['created_at'] = Carbon::now();
 
             $this->model->insert($data);
 
-            return response()->json(['message' => 'User stored!']);
+            return response()->json(['message' => 'user_stored']);
         } catch (QueryException $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }

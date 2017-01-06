@@ -7,7 +7,6 @@ use Illuminate\Database\QueryException;
 use Carbon\Carbon;
 use App\Note as Model;
 use JWTAuth;
-use Validator;
 
 class Note extends Controller
 {
@@ -54,7 +53,7 @@ class Note extends Controller
 
             $this->model->insert($data);
 
-            return response()->json(['message' => 'Note stored!']);
+            return response()->json(['message' => 'note_stored']);
         } catch (QueryException $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }
@@ -80,10 +79,10 @@ class Note extends Controller
                 ->update($data);
 
             if ($updated == 0) {
-                return response()->json(['message' => 'ID not found.'], 400);
+                return response()->json(['message' => 'id_not_found'], 400);
             }
 
-            return response()->json(['message' => 'Note updated!']);
+            return response()->json(['message' => 'note_updated']);
         } catch (QueryException $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }
@@ -98,10 +97,10 @@ class Note extends Controller
                 ->delete();
 
             if ($deleted == 0) {
-                return response()->json(['message' => 'ID not found.'], 400);
+                return response()->json(['message' => 'id_not_found'], 400);
             }
 
-            return response()->json(['message' => 'Note deleted!']);
+            return response()->json(['message' => 'note_deleted']);
         } catch (QueryException $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);
         }

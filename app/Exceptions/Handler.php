@@ -53,6 +53,10 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'token_expired'], 500);
         } else if ($e instanceof \Symfony\Component\HttpKernel\Exception\BadRequestHttpException) {
             return response()->json(['error' => 'token_not_provided'], 500);
+        } else if ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            return response()->json(['error' => 'method_not_allowed_http'], 500);
+        } else if ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+            return response()->json(['error' => 'route_not_found'], 404);
         }
 
         return parent::render($request, $e);

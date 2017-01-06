@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\PasswordReset;
 use App\User;
 
@@ -26,26 +28,35 @@ class Password extends Controller
         $check_has_password_reset = PasswordReset::where('email', $data['email'])->first();
 
         if (!is_null($check_has_password_reset)) {
-            return response()->json(['error' => 'Token already sent!'], 400);
+            return response()->json(['error' => 'token_already_sent'], 400);
         }
 
         $user = User::where('email', $data['email'])->first();
 
         if (is_null($user)) {
-            return response()->json(['error' => 'Email not found.'], 400);
+            return response()->json(['error' => 'email_not_found'], 400);
         }
 
-        $token = str_random(120);
-        $email = $user->email;
+        try {
+            $token      = str_random(120);
+            $email      = $user->email;
+            $created_at = Carbon::now();
 
-        $passwordReset->insert(['email' => $email, 'token' => $token]);
+            $passwordReset->insert([
+                'email'      => $email,
+                'token'      => $token,
+                'created_at' => $created_at
+            ]);
 
-        Mail::raw('Your token is: ' . $token, function($message) use ($email) {
-            $message->to($email);
-            $message->from(['doriansampaioneto@gmail.com']);
-        });
+            Mail::raw('Your token is: ' . $token, function($message) use ($email) {
+                $message->to($email);
+                $message->from(['doriansampaioneto@gmail.com']);
+            });
 
-        return response()->json(['message' => 'Email with token to reset password sent!']);
+            return response()->json(['message' => 'email_with_token_sent']);
+        } catch (QueryException $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 
     public function reset(Request $request, $token)
@@ -64,17 +75,21 @@ class Password extends Controller
         $password_reset = PasswordReset::where('email', $data['email'])->where('token', $token)->first();
 
         if (is_null($password_reset)) {
-            return response()->json(['error' => 'Token not found.'], 400);
+            return response()->json(['error' => 'token_not_found'], 400);
         }
 
-        $new_password = ['password' => Hash::make($data['password'])];
+        try {
+            $new_password = ['password' => Hash::make($data['password'])];
 
-        $updated = User::where('email', $data['email'])->update($new_password);
+            $updated = User::where('email', $data['email'])->update($new_password);
 
-        if ($updated) {
-            PasswordReset::where('email', $data['email'])->delete();
+            if ($updated) {
+                PasswordReset::where('email', $data['email'])->delete();
+            }
+
+            return response()->json(['message' => 'password_reseted']);
+        } catch (QueryException $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
         }
-
-        return response()->json(['message' => 'Password reseted!']);
     }
 }
