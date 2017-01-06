@@ -6,7 +6,7 @@ $app->group(['prefix' => 'api'], function () use ($app) {
     $app->put('reset/{token}', 'Auth\Password@reset');
     $app->post('sign_up', 'User@store');
 
-    $app->group(['middleware' => 'auth'], function() use ($app) {
+    $app->group(['middleware' => ['jwt.auth']], function() use ($app) {
         $app->post('logout', 'Auth\Login@logout');
 
         $app->get('notes', 'Note@get');
