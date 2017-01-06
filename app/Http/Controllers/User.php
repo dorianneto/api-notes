@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 use App\User as Model;
-use Validator;
+use Carbon\Carbon;
 
 class User extends Controller
 {
@@ -18,21 +19,27 @@ class User extends Controller
 
     public function store(Request $request)
     {
-        $data      = $request->all();
-        $validator = Validator::make($data, [
+        $data = $request->only('name', 'email', 'password');
+
+        $validator = $this->validator($data, [
             'name'     => 'required',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+        if (!is_null($validator)) {
+            return $validator;
         }
 
-        $data['password'] = Hash::make($data['password']);
+        try {
+            $data['password'] = Hash::make($data['password']);
+            $data['created_at'] = Carbon::now();
 
-        $this->model->insert($data);
+            $this->model->insert($data);
 
-        return response()->json(['message' => 'User stored!']);
+            return response()->json(['message' => 'User stored!']);
+        } catch (QueryException $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 }
