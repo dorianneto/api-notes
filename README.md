@@ -24,10 +24,29 @@ It's necessary have installed OpenSSL, PDO and Mbstring PHP Extension.
 
 ...
 
+## API
+
+This api is authenticated by JWT, then, it's interesting that you read the [JWT Auth wiki](https://github.com/tymondesigns/jwt-auth/wiki)
+
+Route | Description
+------|------------
+`POST` api/auth | Generates an JWT token to enable an user to use the API
+`POST` api/logout | Invalidates the JWT token (**require JWT token to authorize access**)
+`GET` api/notes | Returns all notes from an user (**require JWT token to authorize access**)
+`GET` api/notes/{id} | Returns only one note from an user (**require JWT token to authorize access**)
+`POST` api/notes | Stores an note assigned an user (**require JWT token to authorize access**)
+`PUT` api/notes/{id} | Updates an note assigned an user (**require JWT token to authorize access**)
+`DELETE` api/notes/{id} | Deletes an note assigned an user (**require JWT token to authorize access**)
+`POST` api/sign_up | Stores an new user
+`POST` api/reset | Sends email to reset password from an user
+`PUT` api/reset/{token} | Resets the user password
+
+*I'm suggest you to use Postman to test the API*
+
 ## Documentation
 
-See the full documentation through this [link](http://hsa.dorianneto.com.br/api/doc/v1).
+See the full documentation through this [link](http://hsa.dorianneto.com.br).
 
 ## License
 
-api-notes is open-sourced software licensed under the MIT License (MIT). Please see [LICENSE](/LICENSE.md) for more information.
+api-notes is open-sourced software licensed under the MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
