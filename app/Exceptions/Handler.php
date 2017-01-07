@@ -28,39 +28,39 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception  $except
      * @return void
      */
-    public function report(Exception $e)
+    public function report(Exception $except)
     {
-        parent::report($e);
+        parent::report($except);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Exception  $except
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
+    public function render($request, Exception $except)
     {
-        if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+        if ($except instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
             return response()->json(['error' => 'token_expired'], 500);
-        } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+        } else if ($except instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
             return response()->json(['error' => 'token_invalid'], 500);
-        } else if ($e instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
+        } else if ($except instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
             return response()->json(['error' => 'token_expired'], 500);
-        } else if ($e instanceof \Symfony\Component\HttpKernel\Exception\BadRequestHttpException) {
+        } else if ($except instanceof \Symfony\Component\HttpKernel\Exception\BadRequestHttpException) {
             return response()->json(['error' => 'token_not_provided'], 500);
-        } else if ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+        } else if ($except instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
             return response()->json(['error' => 'method_not_allowed_http'], 500);
-        } else if ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+        } else if ($except instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
             return response()->json(['error' => 'route_not_found'], 404);
-        } else if ($e instanceof \Swift_TransportException) {
+        } else if ($except instanceof \Swift_TransportException) {
             return response()->json(['error' => 'email_authentication_required'], 500);
         }
 
-        return parent::render($request, $e);
+        return parent::render($request, $except);
     }
 }
