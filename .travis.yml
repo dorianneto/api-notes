@@ -6,11 +6,22 @@ php:
   - hhvm
   - nightly
 
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS hsa_notes;'
+
 before_script:
   - composer self-update
   - composer install --no-interaction
+  - php artisan migrate:install --no-interaction -vvv
 
-script: vendor/bin/phpunit tests/
+script:
+  - php artisan migrate:reset --force --no-interaction -vvv
+  - php artisan migrate --force --no-interaction -vvv
+  - php artisan db:seed --force --no-interaction -vvv
+  - vendor/bin/phpunit tests/
 
 matrix:
   allow_failures:
