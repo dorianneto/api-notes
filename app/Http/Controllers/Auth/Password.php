@@ -11,8 +11,21 @@ use Carbon\Carbon;
 use App\PasswordReset;
 use App\User;
 
+/**
+ * Password's controller
+ *
+ * @version   v1.0.0
+ * @link      http://hsa.dorianneto.com.br/
+ * @author    Dorian Neto <doriansampaioneto@gmail.com>
+ */
 class Password extends Controller
 {
+    /**
+     * Sends an email to user to them reset your password
+     * @param  Request       $request
+     * @param  PasswordReset $passwordReset
+     * @return json
+     */
     public function send(Request $request, PasswordReset $passwordReset)
     {
         $data = $request->only('email');
@@ -59,6 +72,12 @@ class Password extends Controller
         }
     }
 
+    /**
+     * Resets the user password throughs your token
+     * @param  Request $request
+     * @param  string  $token
+     * @return json
+     */
     public function reset(Request $request, $token)
     {
         $data = $request->only('email', 'password');

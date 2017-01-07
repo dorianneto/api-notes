@@ -1,0 +1,9 @@
+source:
+  - ./app/Http/Controllers
+  - ./app/Note.php
+  - ./app/PasswordReset.php
+  - ./app/User.php
+
+destination: ./public/doc
+
+title: "api-notes"

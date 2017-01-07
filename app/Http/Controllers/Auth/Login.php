@@ -7,8 +7,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use JWTAuth;
 
+/**
+ * Logins's controller
+ *
+ * @version   v1.0.0
+ * @link      http://hsa.dorianneto.com.br/
+ * @author    Dorian Neto <doriansampaioneto@gmail.com>
+ */
 class Login extends Controller
 {
+    /**
+     * Authenticates an user to enable to use the API
+     * @param  Request $request
+     * @return json
+     */
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -24,6 +36,11 @@ class Login extends Controller
         return response()->json(compact('token'));
     }
 
+    /**
+     * Disables the user access to API
+     * @param  Request $request
+     * @return json
+     */
     public function logout(Request $request)
     {
         if (!$token = JWTAuth::getToken()) {

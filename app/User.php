@@ -9,6 +9,13 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * App's model
+ *
+ * @version   v1.0.0
+ * @link      http://hsa.dorianneto.com.br/
+ * @author    Dorian Neto <doriansampaioneto@gmail.com>
+ */
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
     use Authenticatable, Authorizable;
