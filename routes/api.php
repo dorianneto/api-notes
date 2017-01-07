@@ -1,4 +1,9 @@
 <?php
+use Illuminate\Support\Facades\File;
+
+$app->get('/', function() {
+    return File::get(public_path() . '/index.html');
+});
 
 $app->group(['prefix' => 'api'], function () use ($app) {
     $app->post('auth', 'Auth\Login@authenticate');
