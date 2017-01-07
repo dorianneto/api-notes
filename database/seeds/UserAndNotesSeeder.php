@@ -14,6 +14,12 @@ class UserAndNotesSeeder extends Seeder
     private $userId;
 
     /**
+     * Tester ID
+     * @var int
+     */
+    private $testerId;
+
+    /**
      * Run the database seeds.
      *
      * @return void
@@ -30,15 +36,23 @@ class UserAndNotesSeeder extends Seeder
      */
     protected function storeUser()
     {
+        $Tester            = new User;
+        $Tester->name      = 'Test';
+        $Tester->password  = Hash::make('3z5DSDPP');
+        $Tester->email     = 'test@test.com';
+        $Tester->save();
+
+        $this->testerId = $Tester->id;
+
         $User            = new User;
-        $User->name      = 'Test';
-        $User->password  = Hash::make('3z5DSDPP');
-        $User->email     = 'test@test.com';
+        $User->name      = 'User';
+        $User->password  = Hash::make('lk89MTQW');
+        $User->email     = 'user@user.com';
         $User->save();
 
         $this->userId = $User->id;
 
-        echo "Generated an user!\n";
+        echo "Users generated!\n";
     }
 
     /**
@@ -50,7 +64,7 @@ class UserAndNotesSeeder extends Seeder
         $data = [
             [
                 'text'    => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor',
-                'user_id' => $this->userId
+                'user_id' => $this->testerId
             ],
             [
                 'text'    => 'Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
@@ -60,6 +74,6 @@ class UserAndNotesSeeder extends Seeder
 
         Note::insert($data);
 
-        echo "User's notes generated!\n";
+        echo "Notes generated!\n";
     }
 }
