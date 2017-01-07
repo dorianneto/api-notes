@@ -32,7 +32,7 @@ Follow steps below to can install the api:
 4. `$ php artisan migrate`
 5. `$ php artisan db:seed`
 
-Enjoy! :heart:
+Enjoy it! :heart:
 
 ## API
 
