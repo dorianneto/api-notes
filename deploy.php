@@ -28,6 +28,11 @@ task('artisan:migrate', function () {
     writeln('<info>' . $output . '</info>');
 })->desc('Execute artisan migrations');
 
+task('artisan:migrate:reset', function () {
+    $output = run('{{bin/php}} {{release_path}}/artisan migrate:reset --force');
+    writeln('<info>' . $output . '</info>');
+})->desc('Execute artisan migrations reset');
+
 task('artisan:seed', function () {
     $output = run('{{bin/php}} {{release_path}}/artisan db:seed --force');
     writeln('<info>' . $output . '</info>');
@@ -54,6 +59,7 @@ task('deploy', [
     'cleanup',
     'env_file',
     'artisan:cache:clear',
+    'artisan:migrate:reset',
     'artisan:migrate',
     'artisan:seed'
 ]);
