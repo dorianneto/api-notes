@@ -57,6 +57,8 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'method_not_allowed_http'], 500);
         } else if ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
             return response()->json(['error' => 'route_not_found'], 404);
+        } else if ($e instanceof \Swift_TransportException) {
+            return response()->json(['error' => 'email_authentication_required'], 500);
         }
 
         return parent::render($request, $e);
