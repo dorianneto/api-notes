@@ -31,9 +31,9 @@ class UserAndNotesSeeder extends Seeder
     protected function storeUser()
     {
         $User            = new User;
-        $User->name      = 'Default';
-        $User->password  = Hash::make('admin');
-        $User->email     = 'admin@admin.com.br';
+        $User->name      = 'Test';
+        $User->password  = Hash::make('3z5DSDPP');
+        $User->email     = 'test@test.com';
         $User->save();
 
         $this->userId = $User->id;
