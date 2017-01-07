@@ -24,7 +24,15 @@ It's necessary have installed OpenSSL, PDO and Mbstring PHP Extension.
 
 ## Installation
 
-...
+Follow steps below to can install the api:
+
+1. `$ composer install`
+2. `$ php artisan jwt:secret` and put the code in .env file
+3. create .env file
+4. `$ php artisan migrate`
+5. `$ php artisan db:seed`
+
+Enjoy! :heart:
 
 ## API
 
@@ -43,7 +51,7 @@ Route | Description
 `POST` api/reset | Sends email to reset password from an user
 `PUT` api/reset/{token} | Resets the user password
 
-*I'm suggest you to use Postman to test the API*
+*I'm suggest you to use Postman to test the API. See the collection [v1](http://hsa.dorianneto.com.br/high-stakes-notes.postman_collection.json) or [v2](http://hsa.dorianneto.com.br/high-stakes-notes-v2.postman_collection.json) to you import in your Postman*
 
 ## License
 

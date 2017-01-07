@@ -1,0 +1,157 @@
+{
+	"variables": [],
+	"info": {
+		"name": "HSA (prod)",
+		"_postman_id": "0b2d1d66-9e3c-67e3-f8c7-3206c6edb459",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/auth?email=test@test.com&password=3z5DSDPP",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/logout",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaHNhLmRvcmlhbm5ldG8uY29tLmJyL2FwaS9hdXRoIiwiaWF0IjoxNDgzNzY5NzQ1LCJleHAiOjE0ODM3NzMzNDUsIm5iZiI6MTQ4Mzc2OTc0NSwianRpIjoieFZRR2FHUlJqWWtiOEt0SiIsInN1YiI6MX0.wUKLDDy358lrOK3NqgsuIbUWBi2IqKdYvJ5SeLotrZE",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/notes",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaHNhLmRvcmlhbm5ldG8uY29tLmJyL2FwaS9hdXRoIiwiaWF0IjoxNDgzNzY5NzQ1LCJleHAiOjE0ODM3NzMzNDUsIm5iZiI6MTQ4Mzc2OTc0NSwianRpIjoieFZRR2FHUlJqWWtiOEt0SiIsInN1YiI6MX0.wUKLDDy358lrOK3NqgsuIbUWBi2IqKdYvJ5SeLotrZE",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "find",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/notes/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaHNhLmRvcmlhbm5ldG8uY29tLmJyL2FwaS9hdXRoIiwiaWF0IjoxNDgzNzY5NzQ1LCJleHAiOjE0ODM3NzMzNDUsIm5iZiI6MTQ4Mzc2OTc0NSwianRpIjoieFZRR2FHUlJqWWtiOEt0SiIsInN1YiI6MX0.wUKLDDy358lrOK3NqgsuIbUWBi2IqKdYvJ5SeLotrZE",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "store",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/notes?text=Teste de texto",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaHNhLmRvcmlhbm5ldG8uY29tLmJyL2FwaS9hdXRoIiwiaWF0IjoxNDgzNzE0NTYzLCJleHAiOjE0ODM3MTgxNjMsIm5iZiI6MTQ4MzcxNDU2MywianRpIjoiQkFHNFJLb01DUVAxNDRZdSIsInN1YiI6MX0.6qSmzXQYKJhnzpeNLtL5212M_j6m4sPrAVR9_YzIlm4",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "put",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/notes/1?text=Isso é apenas um teste 22222223123123123",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaHNhLmRvcmlhbm5ldG8uY29tLmJyL2FwaS9hdXRoIiwiaWF0IjoxNDgzNzE0NTYzLCJleHAiOjE0ODM3MTgxNjMsIm5iZiI6MTQ4MzcxNDU2MywianRpIjoiQkFHNFJLb01DUVAxNDRZdSIsInN1YiI6MX0.6qSmzXQYKJhnzpeNLtL5212M_j6m4sPrAVR9_YzIlm4",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "destroy",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/notes/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaHNhLmRvcmlhbm5ldG8uY29tLmJyL2FwaS9hdXRoIiwiaWF0IjoxNDgzNzE0NTYzLCJleHAiOjE0ODM3MTgxNjMsIm5iZiI6MTQ4MzcxNDU2MywianRpIjoiQkFHNFJLb01DUVAxNDRZdSIsInN1YiI6MX0.6qSmzXQYKJhnzpeNLtL5212M_j6m4sPrAVR9_YzIlm4",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "sign_up",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/sign_up?name=fulano&email=fulano@gmail.com&password=123123",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "reset",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/reset?email=test@test.com",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "reset_token",
+			"request": {
+				"url": "http://hsa.dorianneto.com.br/api/reset/V0M7IHOiicFXuq1irmHLeI7TAs5dl84MqTt2r3WImLBDvW0agXvIAmLgoM6VqiTF7qf6dR9i7Rw8IC7Aix0eqtKU4KZARpahqnBiMi5HPxIa6RnUayijLa8w?email=test@test.com&password=112233",
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
