@@ -14,7 +14,7 @@ class UserTest extends TestCase
             'password' => 'T8Zz2eaP',
         ];
 
-        $this->json('POST', 'api/sign_up', $data)
+        $this->json('POST', '/api/sign_up', $data)
             ->shouldReturnJson()
             ->seeJsonEquals([
                 "message" => "user_stored"

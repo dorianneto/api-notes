@@ -18,7 +18,7 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
 
     protected function getToken()
     {
-        $response = $this->call('POST', 'api/auth', ['email' => self::EMAIL, 'password' => self::PASSWORD]);
+        $response = $this->call('POST', '/api/auth', ['email' => self::EMAIL, 'password' => self::PASSWORD]);
         $token    = $response->getData()->token;
 
         return $token;

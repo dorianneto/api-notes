@@ -10,7 +10,7 @@ class NoteTest extends TestCase
     {
         $token = $this->getToken();
 
-        $this->json('GET', 'api/notes', [], ['Authorization' => 'Bearer ' . $token])
+        $this->json('GET', '/api/notes', [], ['Authorization' => 'Bearer ' . $token])
             ->shouldReturnJson()
             ->assertResponseOk();
     }
@@ -19,7 +19,7 @@ class NoteTest extends TestCase
     {
         $token = $this->getToken();
 
-        $this->json('GET', 'api/notes/1', [], ['Authorization' => 'Bearer ' . $token])
+        $this->json('GET', '/api/notes/1', [], ['Authorization' => 'Bearer ' . $token])
             ->shouldReturnJson()
             ->assertResponseOk();
     }
@@ -31,7 +31,7 @@ class NoteTest extends TestCase
             'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod'
         ];
 
-        $this->json('POST', 'api/notes', $data, ['Authorization' => 'Bearer ' . $token])
+        $this->json('POST', '/api/notes', $data, ['Authorization' => 'Bearer ' . $token])
             ->shouldReturnJson()
             ->seeJsonEquals([
                 "message" => "note_stored"
@@ -49,7 +49,7 @@ class NoteTest extends TestCase
             'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod'
         ];
 
-        $this->json('PUT', 'api/notes/1', $data, ['Authorization' => 'Bearer ' . $token])
+        $this->json('PUT', '/api/notes/1', $data, ['Authorization' => 'Bearer ' . $token])
             ->shouldReturnJson()
             ->seeJsonEquals([
                 "message" => "note_updated"
@@ -64,7 +64,7 @@ class NoteTest extends TestCase
     {
         $token = $this->getToken();
 
-        $this->json('DELETE', 'api/notes/1', [], ['Authorization' => 'Bearer ' . $token])
+        $this->json('DELETE', '/api/notes/1', [], ['Authorization' => 'Bearer ' . $token])
             ->shouldReturnJson()
             ->seeJsonEquals([
                 "message" => "note_deleted"

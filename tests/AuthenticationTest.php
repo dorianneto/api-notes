@@ -6,7 +6,7 @@ class AuthenticationTest extends TestCase
 {
     public function testAuthenticate()
     {
-        $this->json('POST', 'api/auth', ['email' => self::EMAIL, 'password' => self::PASSWORD])
+        $this->json('POST', '/api/auth', ['email' => self::EMAIL, 'password' => self::PASSWORD])
             ->shouldReturnJson()
             ->seeJsonStructure([
                 'token'
@@ -16,7 +16,7 @@ class AuthenticationTest extends TestCase
 
     public function testSendReset()
     {
-        $this->json('POST', 'api/reset', ['email' => self::EMAIL])
+        $this->json('POST', '/api/reset', ['email' => self::EMAIL])
             ->shouldReturnJson()
             ->seeJsonEquals([
                 "message" => "email_with_token_sent"
@@ -34,7 +34,7 @@ class AuthenticationTest extends TestCase
             ->where('email', self::EMAIL)
             ->first();
 
-        $this->json('PUT', 'api/reset/' . $password_resets->token, ['email' => self::EMAIL, 'password' => self::PASSWORD])
+        $this->json('PUT', '/api/reset/' . $password_resets->token, ['email' => self::EMAIL, 'password' => self::PASSWORD])
             ->shouldReturnJson()
             ->seeJsonEquals([
                 "message" => "password_reseted"
@@ -49,7 +49,7 @@ class AuthenticationTest extends TestCase
     {
         $token = $this->getToken();
 
-        $this->json('POST', 'api/logout', [], ['Authorization' => 'Bearer ' . $token])
+        $this->json('POST', '/api/logout', [], ['Authorization' => 'Bearer ' . $token])
             ->shouldReturnJson()
             ->seeJsonEquals([
                 "message" => "sign_out"
