@@ -29,7 +29,7 @@ task('artisan:migrate', function () {
 })->desc('Execute artisan migrations');
 
 task('artisan:seed', function () {
-    $output = run('{{bin/php}} {{release_path}}/artisan db:seed');
+    $output = run('{{bin/php}} {{release_path}}/artisan db:seed --force');
     writeln('<info>' . $output . '</info>');
 })->desc('Execute artisan seeds');
 
