@@ -7,7 +7,7 @@ app/storage/
 
 # Laravel 5 & Lumen specific
 bootstrap/cache/
-.env.*
+.env.prod
 .env
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
