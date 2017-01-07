@@ -20,13 +20,15 @@ api-notes is verified and tested on PHP 5.6 and 7.0.
 
 It's necessary have installed OpenSSL, PDO and Mbstring PHP Extension.
 
+*This api is authenticated by JWT, then, it's interesting that you read the [JWT Auth wiki](https://github.com/tymondesigns/jwt-auth/wiki)*
+
 ## Installation
 
 ...
 
 ## API
 
-This api is authenticated by JWT, then, it's interesting that you read the [JWT Auth wiki](https://github.com/tymondesigns/jwt-auth/wiki)
+See the full documentation through this [link](http://hsa.dorianneto.com.br).
 
 Route | Description
 ------|------------
@@ -42,10 +44,6 @@ Route | Description
 `PUT` api/reset/{token} | Resets the user password
 
 *I'm suggest you to use Postman to test the API*
-
-## Documentation
-
-See the full documentation through this [link](http://hsa.dorianneto.com.br).
 
 ## License
 
